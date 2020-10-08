@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 import AddNew from "./AddNew";
+import NewStatus from "./NewStatus";
 
 
 const taskList = [
@@ -31,9 +32,19 @@ function App() {
 
 
     const [tasks, setTask] = useState(taskList);
+    const [column, setColumn] = useState(columnArray)
+
+
+    const createStatuse = (inputStatuse) => {
+
+        const newStatus = [...column, {id: Math.random(), title: inputStatuse, status: inputStatuse}];
+        setColumn(newStatus);
+        statuses.push(inputStatuse);
+    }
+
 
     const createTask = (newName, newStatus) => {
-        const newTask = [...tasks, {id:Math.random(), name: newName, status: newStatus}]
+        const newTask = [...tasks, {id: Math.random(), name: newName, status: newStatus}]
         setTask(newTask);
     }
 
@@ -63,15 +74,20 @@ function App() {
 
     return (
 
+        <div className='App'>
+            <div className="container">
 
-        <div className="container">
-            <AddNew createTask={createTask}/>
-            <div className="row">
+                <AddNew createTask={createTask} column={column}/>
+                <NewStatus createStatuse={createStatuse}/>
+                <div className="row">
 
-                {columnArray.map(el => <Column column={el}
-                                               task={tasks} key={el.id}
-                                               changeTaskStatus={changeTaskStatus}
-                                               buttonDelete={buttonDelete}/>)}
+                    {column.map(el => <Column column={el}
+                                              task={tasks} key={el.id}
+                                              changeTaskStatus={changeTaskStatus}
+                                              buttonDelete={buttonDelete}
+                                              statuses={statuses}
+                    />)}
+                </div>
             </div>
         </div>
     );

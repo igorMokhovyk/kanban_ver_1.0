@@ -8,8 +8,9 @@ function Column(props) {
                 {props.column.title}
             </h3>
             {props.task.filter(el => el.status === props.column.status)
-                .map(el => <Task task={el} changeTaskStatus={props.changeTaskStatus}
-                                 buttonDelete={props.buttonDelete} key={el.id}/>)}
+                .map(el => <Task column={props.column} task={el} changeTaskStatus={props.changeTaskStatus}
+                                 buttonDelete={props.buttonDelete} key={el.id}
+                statuses={props.statuses}/>)}
         </div>
     )
 }

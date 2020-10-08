@@ -19,9 +19,9 @@ function AddNew(props) {
 
     return (
         <div>
-            <div className="progress">
+            <div>
             </div>
-            <button onClick={() => setCreateMode(true)}>Create</button>
+            <Button color='info' onClick={() => setCreateMode(true)}>Create</Button>
             {createMode &&
             <>
 
@@ -32,11 +32,12 @@ function AddNew(props) {
                         <Input type="text" value={nameInput} placeholder="type name here"
                                onChange={(event) => setNameInput(event.target.value)}/>
                         <Label>Status:</Label>
-                        <Input type="select" value={statusInput} onChange={(event) => setStatusInput(event.target.value)}>
-                            <option value='todo'>To do</option>
-                            <option value='progress'>In progress</option>
-                            <option value='review'>Review</option>
-                            <option value='done'>Done</option>
+                        <Input type="select" value={statusInput}
+                               onChange={(event) => setStatusInput(event.target.value)}>
+                            {props.column.map(el => <option>{el.title}</option>)}
+                            {/*<option value='progress'>In progress</option>*/}
+                            {/*<option value='review'>Review</option>*/}
+                            {/*<option value='done'>Done</option>*/}
                         </Input>
                     </ModalBody>
                     <ModalFooter>
