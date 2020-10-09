@@ -6,15 +6,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import AddNew from "./AddNew";
 import NewStatus from "./NewStatus";
+import Trash from "./Trash";
 
 
 const taskList = [
-    {id: Math.random(), name: 'First Task', status: 'todo'},
-    {id: Math.random(), name: 'Second Task', status: 'progress'},
-    {id: Math.random(), name: 'Third Task', status: 'review'},
-    {id: Math.random(), name: 'Fifth Task', status: 'review'},
-    {id: Math.random(), name: 'Six Task', status: 'done'},
-    {id: Math.random(), name: 'Forth Task', status: 'done'}
+    {id: Math.random(), name: 'First Task', status: 'todo', priority: 4},
+    {id: Math.random(), name: 'Second Task', status: 'progress', priority: 6},
+    {id: Math.random(), name: 'Third Task', status: 'review', priority: 5},
+    {id: Math.random(), name: 'Fifth Task', status: 'review', priority: 8},
+    {id: Math.random(), name: 'Six Task', status: 'done', priority: 10},
+    {id: Math.random(), name: 'Forth Task', status: 'done', priority: 9}
 ];
 
 const columnArray = [
@@ -26,25 +27,42 @@ const columnArray = [
 
 
 const statuses = ['todo', 'progress', 'review', 'done'];
-
+const priority = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 function App() {
 
 
     const [tasks, setTask] = useState(taskList);
     const [column, setColumn] = useState(columnArray)
+    const [trashBascket, setTrashBascket] = useState([{
+        id: Math.random(),
+        name: 'Forth Task',
+        status: 'done',
+        priority: 9
+    }]);
+
+
+    const priorityChange = (id, value) => {
+        const newTask = tasks.map(el => {
+            if (el.id === id) {
+                el.priority = priority[priority.indexOf(el.priority) + value]
+            }
+            return el;
+        })
+        setTask(newTask)
+    }
 
 
     const createStatuse = (inputStatuse) => {
 
-        const newStatus = [...column, {id: Math.random(), title: inputStatuse, status: inputStatuse}];
+        const newStatus = [...column, {id: Math.random(), title: inputStatuse, status: inputStatuse, priority: 1}];
         setColumn(newStatus);
         statuses.push(inputStatuse);
     }
 
 
     const createTask = (newName, newStatus) => {
-        const newTask = [...tasks, {id: Math.random(), name: newName, status: newStatus}]
+        const newTask = [...tasks, {id: Math.random(), name: newName, status: newStatus, priority: 1}]
         setTask(newTask);
     }
 
@@ -66,9 +84,23 @@ function App() {
     }
 
 
-    const buttonDelete = (id) => {
+    const buttonDelete = (id, name, status, priority) => {
         const newTask = tasks.filter(el => el.id !== id);
-        setTask(newTask)
+        const newTrash = [...trashBascket, {id: id, name: name, status: status, priority: priority}]
+        setTrashBascket(newTrash)
+        setTask(newTask);
+        console.log(newTrash)
+    }
+
+
+    const editTask = (id, newTask) => {
+        const updatedTask = tasks.map(el => {
+            if (el.id === id) {
+                return {...el, ...newTask}
+            }
+            return el;
+        })
+        setTask(updatedTask);
     }
 
 
@@ -86,9 +118,14 @@ function App() {
                                               changeTaskStatus={changeTaskStatus}
                                               buttonDelete={buttonDelete}
                                               statuses={statuses}
+                                              priorityChange={priorityChange}
+                                              priority={priority}
+                                              editTask={editTask}
                     />)}
                 </div>
+                <Trash trashBascket={trashBascket}/>
             </div>
+
         </div>
     );
 }

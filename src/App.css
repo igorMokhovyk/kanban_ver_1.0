@@ -1,6 +1,16 @@
 .App {
   text-align: left;
-
+background-color: azure;
 }
 
+.Button {
+  margin-top: 20px;
+}
 
+.Column {
+  margin-top: 50px;
+}
+
+.Create {
+  padding-top: 20px
+}

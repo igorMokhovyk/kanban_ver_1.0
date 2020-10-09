@@ -1,27 +1,45 @@
 import React, {useState} from "react";
 import {Button, Modal, ModalHeader, ModalBody, ButtonToggle} from 'reactstrap';
+import EditModel from "./EditModel";
 
 
 function Task(props) {
 
     const [deleteMode, setDeleteMode] = useState(false)
+    const [editMode, setEditMode] = useState(false)
+
+    const deleteButton = () => {
+        props.buttonDelete(props.task.id, props.task.name, props.task.priority, props.task.status)
+    }
+
+    const openEditMode = () => {
+        setEditMode(!editMode)
+    }
 
 
     return (
-        <div className='card border-secondary text-white bg-warning mb-3 shadow-lg'>
+        <div className='card text-white bg-warning mb-3 shadow-lg'>
+            <EditModel editMode={editMode} openEditModel={openEditMode} task={props.task} edit={props.editTask}/>
             <div className='card-body'>
+
+                <h6 className="card-text text-dark">Priority: {props.task.priority}</h6>
+                <Button size='sm' disabled={props.task.priority === props.priority[props.priority.length - 1]}
+                        onClick={() => props.priorityChange(props.task.id, +1)}>↑</Button>
+                <Button size='sm' disabled={props.task.priority === props.priority[0]}
+                        onClick={() => props.priorityChange(props.task.id, -1)}>↓</Button>
                 <h5 className="card-title text-dark">{props.task.name}</h5>
                 <p className="card-text text-dark">{props.task.status}</p>
-                <button className="btn btn-primary" disabled={props.task.status === 'todo'}
+                <button className="btn btn-primary border shadow-lg" disabled={props.task.status === 'todo'}
                         onClick={() => props.changeTaskStatus(props.task.id, 'left')}>←
                 </button>
-                <button className="btn btn-primary"
-                        disabled={props.task.status === props.statuses[props.statuses.length - 1]}
+                <button className="btn btn-primary border shadow-lg"
+
                         onClick={() => props.changeTaskStatus(props.task.id, 'right')}>→
                 </button>
                 <button className="btn btn-outline-danger"
                         onClick={() => setDeleteMode(true)}>Delete
                 </button>
+                <Button outline color='info' onClick={() => setEditMode(true)}>Edit</Button>
                 {deleteMode &&
                 <>
 
@@ -29,7 +47,7 @@ function Task(props) {
                         <ModalHeader>Do you want to delete "{props.task.name}"?</ModalHeader>
                         <ModalBody>
                             <ButtonToggle color="success"
-                                          onClick={() => props.buttonDelete(props.task.id)}>YES</ButtonToggle>{' '}
+                                          onClick={deleteButton}>YES</ButtonToggle>{' '}
                             <ButtonToggle color="danger"
                                           onClick={() => setDeleteMode(false)}>CANCEL</ButtonToggle>{' '}
                         </ModalBody>

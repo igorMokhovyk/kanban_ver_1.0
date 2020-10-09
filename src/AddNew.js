@@ -19,9 +19,9 @@ function AddNew(props) {
 
     return (
         <div>
-            <div>
+            <div className='Create'>
             </div>
-            <Button color='info' onClick={() => setCreateMode(true)}>Create</Button>
+            <Button color='info'  onClick={() => setCreateMode(true)}>Create</Button>
             {createMode &&
             <>
 
