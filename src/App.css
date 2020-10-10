@@ -1,6 +1,6 @@
 .App {
   text-align: left;
-background-color: azure;
+
 }
 
 .Button {
@@ -9,8 +9,25 @@ background-color: azure;
 
 .Column {
   margin-top: 50px;
+  color: blueviolet;
+margin-right: 15px;
+  background-color: #cbe6f1;
 }
 
 .Create {
   padding-top: 20px
+}
+
+.Column-text {
+  text-shadow: black;
+  text-align: center;
+  color: black;
+  margin-top: 15px;
+  font-family: Helvetica Baloo;
+  box-shadow: black;
+}
+
+.EditButton {
+  border: black;
+    margin-top: 10px;
 }

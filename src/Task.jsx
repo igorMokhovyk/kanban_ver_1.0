@@ -18,8 +18,9 @@ function Task(props) {
 
 
     return (
-        <div className='card text-white bg-warning mb-3 shadow-lg'>
-            <EditModel editMode={editMode} openEditModel={openEditMode} task={props.task} edit={props.editTask}/>
+        <div className='card text-white bg-warning mb-3 shadow-sm'>
+            <EditModel editMode={editMode} openEditModel={openEditMode} task={props.task} edit={props.editTask}
+                       column={props.column}/>
             <div className='card-body'>
 
                 <h6 className="card-text text-dark">Priority: {props.task.priority}</h6>

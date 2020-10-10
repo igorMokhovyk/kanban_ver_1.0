@@ -16,7 +16,7 @@ function NewStatus(props) {
 
     return (
         <>
-            <Button color='primary' outline='8px' onClick={() => setStatusMode(true)}>Create new Column</Button>
+            <Button className='shadow-lg border-dark EditButton'  color='primary' outline='8px' onClick={() => setStatusMode(true)}>Create new Column</Button>
 
             {statusMode &&
             <>

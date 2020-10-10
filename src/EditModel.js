@@ -24,16 +24,18 @@ function EditModel(props) {
                     <ModalHeader>Edit task</ModalHeader>
                     <ModalBody>
                         <Label>Name:</Label>
-                        <Input type="text" value={nameInput} placeholder="type name here"
+                        <Input type="text" value={nameInput}
                                onChange={(event) => setNameInput(event.target.value)}/>
                         <Label>Status:</Label>
                         <Input type="select" value={statusInput}
                                onChange={(event) => setStatusInput(event.target.value)}>
-
+                            <select>ece</select>
+                            <select>ece</select>
+                            <select>ece</select>
                         </Input>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={createButtonHandler}>Create new Task</Button>{' '}
+                        <Button color="primary" onClick={createButtonHandler}>Update</Button>{' '}
                         <Button color="secondary" onClick={() => props.openEditModel()}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -41,7 +43,7 @@ function EditModel(props) {
             </>
 
 
-            }
+
         </div>
     )
 }
