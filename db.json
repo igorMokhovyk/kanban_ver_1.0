@@ -1,0 +1,8 @@
+{
+    {id: Math.random(), name: 'First Task', status: 'todo', priority: 4},
+    {id: Math.random(), name: 'Second Task', status: 'progress', priority: 6},
+    {id: Math.random(), name: 'Third Task', status: 'review', priority: 5},
+    {id: Math.random(), name: 'Fifth Task', status: 'review', priority: 8},
+    {id: Math.random(), name: 'Six Task', status: 'done', priority: 10},
+    {id: Math.random(), name: 'Forth Task', status: 'done', priority: 9}
+}
