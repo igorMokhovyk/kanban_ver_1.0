@@ -6,10 +6,15 @@ function Trash(props) {
 
     const [trashMode, setTrashMode] = useState(false);
 
+const trashHandler = () => {
+    props.trashButton()
+    setTrashMode(true);
+}
+
 
     return (
         <div>
-            <Button outline className='Button' color="danger" onClick={() => setTrashMode(true)}>Trash 🗑</Button>
+            <Button outline className='Button' color="danger" onClick={trashHandler}>Trash 🗑</Button>
 
             {trashMode &&
             <>
@@ -23,11 +28,13 @@ function Trash(props) {
                         {props.trashBascket.map(el =>
                            <div>
                                <h5> {el.name} <input type="checkbox"/></h5>
+
                            </div>
                         )}
                     {/*</ModalBody>*/}
                     <ModalFooter>
                         <Button color="secondary" onClick={() => setTrashMode(false)}>Close</Button>
+                        <Button>Restore</Button>
                     </ModalFooter>
                 </Modal>
 

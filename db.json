@@ -1,11 +1,9 @@
 {
-<<<<<<< HEAD
   "todos": [
     {
-      "id": "1",
       "name": "First Task",
       "status": "todo",
-      "priority": 4
+      "id": "1"
     },
     {
       "id": "2",
@@ -48,43 +46,18 @@
       "status": "Progress",
       "priority": 1,
       "id": 8
+    },
+    {
+      "name": "edwd",
+      "status": "",
+      "priority": 1,
+      "id": 9
+    },
+    {
+      "name": "vf",
+      "status": "todo",
+      "priority": 1,
+      "id": 10
     }
   ]
 }
-=======
-	"todos" : [
-{
-  "id": "1",
-  "name": "First Task",
-  "status": "todo",
-  "priority": 4
-},
-
-{"id": "2", 
-"name": "Second Task", 
-"status": "progress", 
-"priority": 6
-},
-
-{
-"id": 3, 
-	"name": "Third Task", 
-	"status": "review", 
-	"priority": 5
-},
-{
-"id": 4, 
-	"name": "Fifth Task", 
-	"status": "review", 
-	"priority": 8
-},
-{
-"id": 5,
-	 "name": "Six Task",
-	 "status": "done",
-	 "priority": 10
-}
-
-]
-}
->>>>>>> origin/master

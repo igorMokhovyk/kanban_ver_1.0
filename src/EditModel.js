@@ -29,7 +29,7 @@ function EditModel(props) {
                         <Label>Status:</Label>
                         <Input type="select" value={statusInput}
                                onChange={(event) => setStatusInput(event.target.value)}>
-                            <option>fe</option>
+                            <option></option>
                         </Input>
                     </ModalBody>
                     <ModalFooter>

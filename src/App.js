@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Column from "./Column";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,7 +8,6 @@ import axios from 'axios' ;
 import AddNew from "./AddNew";
 import NewStatus from "./NewStatus";
 import Trash from "./Trash";
-
 
 
 const taskList = [
@@ -34,17 +33,14 @@ const priority = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 function App() {
 
 
-
-
-
     const [tasks, setTask] = useState([]);
     const [column, setColumn] = useState(columnArray)
-    const [trashBascket, setTrashBascket] = useState([{
-        id: Math.random(),
-        name: 'Forth Task',
-        status: 'done',
-        priority: 9
-    }]);
+    const [trashBascket, setTrashBascket] = useState([])
+
+
+    useEffect(() => {
+        getList()
+    }, [])
 
     const getList = () => {
         axios.get('http://localhost:3000/todos')
@@ -64,17 +60,17 @@ function App() {
         })
             .then(res => console.log(res))
             .catch(err => console.log(err))
+        getList()
     }
 
 
-    const deleteList = (id) => {
+    const deleteList = async (id) => {
 
-        axios.delete(`http://localhost:3000/todos/` +id)
+        await axios.delete(`http://localhost:3000/todos/` + id)
             .then(res => console.log(res))
             .catch(err => console.log(id))
+        getList()
     }
-
-
 
 
     const priorityChange = (id, value) => {
@@ -119,16 +115,27 @@ function App() {
     }
 
 
+    // const editTask = (id, newTask) => {
+    //     const updatedTask = tasks.map(el => {
+    //         if (el.id === id) {
+    //             return {...el, ...newTask}
+    //         }
+    //         return el;
+    //     })
+    //     setTask(updatedTask);
+    // }
 
+    const editAxios = async (id, newTask) => {
+        await axios.put('http://localhost:3000/todos/' + id, newTask)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+        getList()
+    }
 
-    const editTask = (id, newTask) => {
-        const updatedTask = tasks.map(el => {
-            if (el.id === id) {
-                return {...el, ...newTask}
-            }
-            return el;
-        })
-        setTask(updatedTask);
+    const trashButton = async () => {
+        await axios.get( 'http://localhost:3000/trash/')
+            .then(res => setTrashBascket(res.data))
+            .catch(err => console.log(err))
     }
 
 
@@ -136,10 +143,9 @@ function App() {
 
         <div className='App'>
             <div className="container">
-                <button onClick={getList}>Get</button>
 
-                <AddNew   column={column} creatList={creatList}/>
-                <NewStatus createStatuse={createStatuse} />
+                <AddNew column={column} creatList={creatList}/>
+                <NewStatus createStatuse={createStatuse}/>
                 <div className="row">
 
                     {column.map(el => <Column column={el}
@@ -149,10 +155,10 @@ function App() {
                                               statuses={statuses}
                                               priorityChange={priorityChange}
                                               priority={priority}
-                                              editTask={editTask}
+                                              editTask={editAxios}
                     />)}
                 </div>
-                <Trash trashBascket={trashBascket}/>
+                <Trash trashBascket={trashBascket} trashButton={trashButton}/>
             </div>
 
         </div>
