@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import './App.css';
 import Column from "./Column";
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from 'axios' ;
 
 
 import AddNew from "./AddNew";
 import NewStatus from "./NewStatus";
 import Trash from "./Trash";
+import {Button} from "bootstrap/js/src";
 
 
 const taskList = [
@@ -32,7 +34,10 @@ const priority = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 function App() {
 
 
-    const [tasks, setTask] = useState(taskList);
+
+
+
+    const [tasks, setTask] = useState([]);
     const [column, setColumn] = useState(columnArray)
     const [trashBascket, setTrashBascket] = useState([{
         id: Math.random(),
@@ -40,6 +45,36 @@ function App() {
         status: 'done',
         priority: 9
     }]);
+
+    const getList = () => {
+        axios.get('http://localhost:3000/todos')
+            .then(res => {
+                console.log(res)
+                setTask(res.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+
+    const creatList = (newName, newStatus) => {
+        axios.post('http://localhost:3000/todos', {
+            name: newName, status: newStatus, priority: 1
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+
+    const deleteList = (id) => {
+
+        axios.delete(`http://localhost:3000/todos/` +id)
+            .then(res => console.log(res))
+            .catch(err => console.log(id))
+    }
+
+
 
 
     const priorityChange = (id, value) => {
@@ -61,10 +96,10 @@ function App() {
     }
 
 
-    const createTask = (newName, newStatus) => {
-        const newTask = [...tasks, {id: Math.random(), name: newName, status: newStatus, priority: 1}]
-        setTask(newTask);
-    }
+    // const createTask = (newName, newStatus) => {
+    //     const newTask = [...tasks, {id: Math.random(), name: newName, status: newStatus, priority: 1}]
+    //     setTask(newTask);
+    // }
 
 
     const changeTaskStatus = (taskId, direction) => {
@@ -84,13 +119,6 @@ function App() {
     }
 
 
-    const buttonDelete = (id, name, status, priority) => {
-        const newTask = tasks.filter(el => el.id !== id);
-        const newTrash = [...trashBascket, {id: id, name: name, status: status, priority: priority}]
-        setTrashBascket(newTrash)
-        setTask(newTask);
-        console.log(newTrash)
-    }
 
 
     const editTask = (id, newTask) => {
@@ -108,15 +136,16 @@ function App() {
 
         <div className='App'>
             <div className="container">
+                <button onClick={getList}>Get</button>
 
-                <AddNew createTask={createTask} column={column}/>
-                <NewStatus createStatuse={createStatuse}/>
+                <AddNew   column={column} creatList={creatList}/>
+                <NewStatus createStatuse={createStatuse} />
                 <div className="row">
 
                     {column.map(el => <Column column={el}
                                               task={tasks} key={el.id}
                                               changeTaskStatus={changeTaskStatus}
-                                              buttonDelete={buttonDelete}
+                                              deleteList={deleteList}
                                               statuses={statuses}
                                               priorityChange={priorityChange}
                                               priority={priority}

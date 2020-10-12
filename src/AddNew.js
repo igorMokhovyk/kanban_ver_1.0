@@ -9,7 +9,7 @@ function AddNew(props) {
     const [statusInput, setStatusInput] = useState('todo');
 
     const createButtonHandler = () => {
-        props.createTask(nameInput, statusInput);
+        props.creatList(nameInput, statusInput);
         setCreateMode(false);
         setNameInput('');
         setStatusInput('');
@@ -34,7 +34,7 @@ function AddNew(props) {
                         <Label>Status:</Label>
                         <Input type="select" value={statusInput}
                                onChange={(event) => setStatusInput(event.target.value)}>
-                            {props.column.map(el => <option>{el.title}</option>)}
+                            {props.column.map(el => <option>{el.status}</option>)}
                             {/*<option value='progress'>In progress</option>*/}
                             {/*<option value='review'>Review</option>*/}
                             {/*<option value='done'>Done</option>*/}

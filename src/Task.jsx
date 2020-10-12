@@ -10,6 +10,7 @@ function Task(props) {
 
     const deleteButton = () => {
         props.buttonDelete(props.task.id, props.task.name, props.task.priority, props.task.status)
+        setDeleteMode(!deleteMode)
     }
 
     const openEditMode = () => {
@@ -24,23 +25,24 @@ function Task(props) {
             <div className='card-body'>
 
                 <h6 className="card-text text-dark">Priority: {props.task.priority}</h6>
-                <Button size='sm' disabled={props.task.priority === props.priority[props.priority.length - 1]}
+                <Button size='sm' className='Arrow-but'
+                        disabled={props.task.priority === props.priority[props.priority.length - 1]}
                         onClick={() => props.priorityChange(props.task.id, +1)}>↑</Button>
                 <Button size='sm' disabled={props.task.priority === props.priority[0]}
                         onClick={() => props.priorityChange(props.task.id, -1)}>↓</Button>
                 <h5 className="card-title text-dark">{props.task.name}</h5>
                 <p className="card-text text-dark">{props.task.status}</p>
-                <button className="btn btn-primary border shadow-lg" disabled={props.task.status === 'todo'}
+                <button className="btn btn-primary border shadow-lg Arrow-but" disabled={props.task.status === 'todo'}
                         onClick={() => props.changeTaskStatus(props.task.id, 'left')}>←
                 </button>
-                <button className="btn btn-primary border shadow-lg"
+                <button className="btn btn-primary border shadow-lg Arrow-but"
 
                         onClick={() => props.changeTaskStatus(props.task.id, 'right')}>→
                 </button>
-                <button className="btn btn-outline-danger"
+                <button className="btn btn-outline-danger EditButton"
                         onClick={() => setDeleteMode(true)}>Delete
                 </button>
-                <Button outline color='info' onClick={() => setEditMode(true)}>Edit</Button>
+                <Button outline color='info' className='EditButton' onClick={() => setEditMode(true)}>Edit</Button>
                 {deleteMode &&
                 <>
 

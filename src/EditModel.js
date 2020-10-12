@@ -29,9 +29,7 @@ function EditModel(props) {
                         <Label>Status:</Label>
                         <Input type="select" value={statusInput}
                                onChange={(event) => setStatusInput(event.target.value)}>
-                            <select>ece</select>
-                            <select>ece</select>
-                            <select>ece</select>
+                            <option>fe</option>
                         </Input>
                     </ModalBody>
                     <ModalFooter>

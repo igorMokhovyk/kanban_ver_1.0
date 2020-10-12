@@ -10,7 +10,7 @@ function Column(props) {
             {props.task.filter(el => el.status === props.column.status)
                 .sort((a, b) => b.priority - a.priority)
                 .map(el => <Task column={props.column} task={el} changeTaskStatus={props.changeTaskStatus}
-                                 buttonDelete={props.buttonDelete} key={el.id}
+                                 buttonDelete={props.deleteList} key={el.id}
                                  statuses={props.statuses}
                                  priorityChange={props.priorityChange}
                                  priority={props.priority}

@@ -30,4 +30,9 @@ margin-right: 15px;
 .EditButton {
   border: black;
     margin-top: 10px;
+  margin-right: 10px;
+}
+
+.Arrow-but {
+  margin-right: 10px;
 }
